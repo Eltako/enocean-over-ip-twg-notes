@@ -49,6 +49,6 @@ The following steps were proposed by Eltako and accepted by the EnOcean Alliance
 
 ### Branching of responsibilities
 
-Eltako -> JSON schema
-EnOcean Alliance -> MQTT
-All others -> EEPs and Key Value Pairs
+- **Eltako** is responsible for **JSON Schema / CAMP**
+- **EnOcean Alliance** is responsible for **MQTT**
+- **All others** is responsible for **EEPs and Key Value Pairs**
