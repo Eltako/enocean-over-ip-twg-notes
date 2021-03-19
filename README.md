@@ -47,6 +47,8 @@ The following steps were proposed by Eltako and accepted by the EnOcean Alliance
 - Preparing and executing the hand over to the EnOcean Alliance
 - Reversing the forking direction, **from** the EnOcean Alliance **to** Eltako, running the project under full EnOcean Alliance control with Eltako being just a contributor equal to every other member of the alliance
 
+On March the 19th 2021 ownership of the repository has been handed over to the EnOcean Alliance. 
+
 ### Branching of responsibilities
 
 - **Eltako** is responsible for **JSON Schema / CAMP**
