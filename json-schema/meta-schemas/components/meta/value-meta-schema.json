@@ -1,0 +1,315 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "required": [
+        "$schema",
+        "definitions"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "title": "Schema file location (this schema)",
+            "type": "string",
+            "__TODO": "Add possible online schema from EnOcean website.",
+            "default": "./query-meta-schema.json"
+        },
+        "definitions": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^[a-z][a-zA-Z0-9]*$": {
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "required"
+                    ],
+                    "default": {
+                        "title": "",
+                        "description": "",
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["requiredProperty"],
+                        "properties": {
+                            "testValue": {
+                                "title": "",
+                                "description": "",
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 100,
+                                "step": 1,
+                                "default": 0
+                            },
+                            "unit": {
+                                "title": "",
+                                "description": "",
+                                "type": "string",
+                                "enum": [
+                                    "unit1",
+                                    "unit2",
+                                    "unit3"
+                                ],
+                                "default": "unit1"
+                            }
+                        }
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "title": "Title of query property",
+                            "description": "Descriptiv name of the property. Can hold additional information the property name cant hold.",
+                            "type": "string",
+                            "default": ""
+                        },
+                        "description": {
+                            "title": "Description of the query property",
+                            "description": "To add additional information. Describing what the property is used for and/or how to use it.",
+                            "type": "string",
+                            "default": ""
+                        },
+                        "type": {
+                            "title": "Value type the query property can hold",
+                            "description": "Value type the porperty is allowed to hold. A string value that should be \"integer\" or \"string\".",
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "object",
+                                "number"
+                            ]
+                        },
+                        "additionalProperties": {
+                            "const": false
+                        },
+                        "required": {
+                            "title": "Holds all property names that are required",
+                            "description": "Holds the property names that must be set in the dependency file.",
+                            "type": "array",
+                            "default": [
+                                "$schema",
+                                "number",
+                                "senderId",
+                                "repeating",
+                                "destination",
+                                "origin",
+                                "direction"
+                            ],
+                            "additionalItems": true,
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "title": "Name of the properties used in this building block",
+                            "description": "Holds all properties needet to describe the value building block. It schould hold a value property named ___Value holding the actual value and an optional unit property, holding all possible units the value can have.",
+                            "type": "object",
+                            "default": {
+                                "testValue": {
+                                    "title": "",
+                                    "description": "",
+                                    "type": "number",
+                                    "minimum": 0,
+                                    "maximum": 100,
+                                    "step": 1,
+                                    "default": 0
+                                },
+                                "unit": {
+                                    "title": "",
+                                    "description": "",
+                                    "type": "string",
+                                    "enum": [
+                                        "unit1",
+                                        "unit2",
+                                        "unit3"
+                                    ],
+                                    "default": "unit1"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "minProperties": 1,
+                            "maxProperties": 2,
+                            "properties": {
+                                "unit": {
+                                    "title": "Unit property holding all possible units",
+                                    "description": "Enter all possible units in the enum property to require one of these to be used.",
+                                    "type": "object",
+                                    "default": {
+                                        "title": "",
+                                        "description": "",
+                                        "type": "string",
+                                        "enum": [
+                                            "unit1",
+                                            "unit2",
+                                            "unit3"
+                                        ],
+                                        "default": "unit1"
+                                    },
+                                    "required": [
+                                        "title",
+                                        "description",
+                                        "type",
+                                        "enum"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "title": {
+                                            "title": "Unit title",
+                                            "description": "Title for what units are allowed.",
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "description": {
+                                            "title": "Unit description",
+                                            "description": "Description of which units are allowed to be used in your property.",
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "type": {
+                                            "title": "Type of the unit property",
+                                            "description": "The type of the information the unity property uses. In our case the value building block allowes only \"string\" as the unit type.",
+                                            "type": "string",
+                                            "const": "string"
+                                        },
+                                        "enum": {
+                                            "title": "Enum allowing only specific values",
+                                            "description": "With this property you can assure, that the unit property may hold only one of these values. You will need to add all possible units in here as a sting value.",
+                                            "type": "array",
+                                            "additionalItems": false,
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "default": {
+                                            "title": "Default value of unit property",
+                                            "description": "Optional property to set a default value for the unit property.",
+                                            "type": "string",
+                                            "default": "unit1"
+                                        }
+                                    }
+                                }
+                            },
+                            "patternProperties": {
+                                "^([a-z][a-zA-Z0-9])+(Value)*$": {
+                                    "title": "Value range for value building block",
+                                    "description": "Holds information of the value range allowed and tht stepsize, which describes the difference betweene the usable values.",
+                                    "type": "object",
+                                    "default": {
+                                        "title": "",
+                                        "description": "",
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "maximum": 100,
+                                        "step": 1,
+                                        "default": 0
+                                    },
+                                    "required": [
+                                        "title",
+                                        "description",
+                                        "type"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "title": {
+                                            "title": "Title of the value range",
+                                            "description": "Title holding name and some information about the value range.",
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "description": {
+                                            "title": "Description of the value range",
+                                            "description": "Description holding additional information about the value range and the stepsize.",
+                                            "type": "string",
+                                            "default": ""
+                                        },
+                                        "type": {
+                                            "title": "Type allowed to be used for the value property",
+                                            "description": "Holds the type of the value allowed to be used. For the value range thet type of the value must be a \"number\".",
+                                            "type": "string",
+                                            "const": "number"
+                                        },
+                                        "minimum": {
+                                            "title": "The minimum value allowed",
+                                            "description": "Minimum is a JSON schema draft element used to assure the given value of the property is bigger or equal to the set minimum. Floating point values should be allowed.",
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "maximum": {
+                                            "title": "The maximum value allowed",
+                                            "description": "Maximum is a JSON schema draft element used to assure the given value of the property is smaller or equal to the set minimum. Floating point values should be allowed.",
+                                            "type": "number",
+                                            "default": 0
+                                        },
+                                        "step": {
+                                            "title": "The stepsize allowed",
+                                            "description": "With Size you may describe the difference between the values allowed in the range (i.e. with a range from 1 to 100 and a stepsize of 0.5 only multiples of 0.5 are allowed: 1, 1.5, 2, ..., 99.5, 100).",
+                                            "type": "number",
+                                            "default": 1
+                                        },
+                                        "unused": {
+                                            "title": "To set unused, reserved or empty data blocks",
+                                            "anyOf": [
+                                                {
+                                                    "type": "array",
+                                                    "default": [
+                                                        {
+                                                            "from": 0,
+                                                            "to": 0
+                                                        },
+                                                        {
+                                                            "from": 0,
+                                                            "to": 0
+                                                        }
+                                                    ],
+                                                    "items": {
+                                                        "type": "object",
+                                                        "required": [
+                                                            "from",
+                                                            "to"
+                                                        ],
+                                                        "additionalProperties": false,
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "integer"
+                                                            },
+                                                            "to": {
+                                                                "type": "integer"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "default": {
+                                                        "from": 0,
+                                                        "to": 0
+                                                    },
+                                                    "required": [
+                                                        "from",
+                                                        "to"
+                                                    ],
+                                                    "additionalProperties": false,
+                                                    "properties": {
+                                                        "from": {
+                                                            "type": "integer"
+                                                        },
+                                                        "to": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "oneOf": {},
+                                        "default": {
+                                            "title": "Default value of value range property",
+                                            "description": "Optional property to set a default value for the value range property.",
+                                            "type": "number",
+                                            "default": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "$schema": "../d2-34-00-schema.json",
+    "number": "00-00-00",
+    "direction": "to",
+    "INCREASE": {
+        "infotype": "temperature",
+        "subtype": "delta",
+        "BY": "3°C"
+    },
+    "Temperature": {
+        "value": "3",
+        "unit": "°C"
+    }
+}

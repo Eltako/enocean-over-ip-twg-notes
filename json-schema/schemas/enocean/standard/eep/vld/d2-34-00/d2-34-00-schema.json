@@ -1,0 +1,141 @@
+{
+    "$schema": "../../../../../../meta-schemas/transport-layers/enocean/eep-meta-schema.json",
+    "required": [
+        "$schema",
+        "number",
+        "senderId",
+        "repeating",
+        "destination",
+        "origin",
+        "direction"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "enum": [
+                "../d2-34-00-schema.json"
+            ]
+        },
+        "number": {
+            "type": "string",
+            "default": "00-00-00",
+            "pattern": "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}"
+        },
+        "senderId": {
+            "title": "Identification of the sending device",
+            "description": "To identify your device you will need to send your sender identification to the controller.",
+            "type": "string",
+            "default": "",
+            "pattern": "[a-zA-Z0-9]-[a-zA-Z0-9]"
+        },
+        "repeating": {
+            "title": "Signal deduplication",
+            "description": "",
+            "type": "string",
+            "default": "none",
+            "enum": [
+                "none",
+                "single",
+                "multiple"
+            ]
+        },
+        "destination": {
+            "title": "Destination name",
+            "description": "What is this JSON payloads destination?",
+            "default": "",
+            "type": "string"
+        },
+        "origin": {
+            "title": "Origin name",
+            "description": "What is the JSON payloads origin?",
+            "type": "string",
+            "default": "actuator",
+            "enum": [
+                "gateway",
+                "sensor",
+                "actuator",
+                "device"
+            ]
+        },
+        "direction": {
+            "title": "Direction of the payload",
+            "description": "Specify the direction: Is the payload send \"from\" or \"to\" the controller?",
+            "type": "string",
+            "enum": [
+                "from",
+                "to"
+            ]
+        },
+        "command": {
+            "title": "Command value",
+            "description": "Set the specific command value used by the EEP payload as an whole number.",
+            "type": "integer",
+            "default": 0,
+            "minimum": 0,
+            "maximum": 16,
+            "bitPosition": -4,
+            "bitLength": 4,
+            "offset": 0,
+            "encoding": "bigEndian",
+            "unused": [
+                {
+                    "from": 0,
+                    "to": 2
+                },
+                {
+                    "from": 8,
+                    "to": 16
+                }
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "command": {
+                        "const": 3
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "command",
+                    "channel"
+                ],
+                "properties": {
+                    "$schema": {
+                        "type": "string",
+                        "enum": [
+                            "../d2-34-00-schema.json"
+                        ]
+                    },
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "command": {},
+                    "channel": {
+                        "title": "Channel number used by profile",
+                        "$ref": "../../../../../schemaDefinitions/my-value-schema.json#",
+                        "bitPosition": 0,
+                        "bitLength": 5,
+                        "offset": 1,
+                        "encoding": "bigEndian",
+                        "unused": 33
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    ]
+}

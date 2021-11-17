@@ -1,0 +1,101 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "definitions": {
+        "temperature": {
+            "title": "Generic temperature value range",
+            "description": "This temperature value range validates sensable temperature values from -40 to 100°C and other unit equivalent.",
+            "type": "object",
+            "required": [
+                "temperatureValue",
+                "unit"
+            ],
+            "properties": {
+                "unit": {
+                    "title": "Temperature Unit",
+                    "description": "Select a temperature unit between Celcius (°C), Fahrenheit (°F) or Kelvin (K).",
+                    "type": "string",
+                    "enum": [
+                        "°C",
+                        "°F",
+                        "K"
+                    ],
+                    "default": "°C"
+                }
+            },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {
+                            "unit": {
+                                "const": "°C"
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "temperatureValue": {
+                                "title": "",
+                                "description": "",
+                                "type": "number",
+                                "minimum": -40,
+                                "maximum": 100,
+                                "step": 0.5,
+                                "default": 0
+                            },
+                            "unit": {}
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "unit": {
+                                "const": "°F"
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "temperatureValue": {
+                                "title": "",
+                                "description": "",
+                                "type": "number",
+                                "minimum": -40,
+                                "maximum": 220,
+                                "step": 0.5,
+                                "default": 0
+                            },
+                            "unit": {}
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                {
+                    "if": {
+                        "properties": {
+                            "unit": {
+                                "const": "K"
+                            }
+                        }
+                    },
+                    "then": {
+                        "properties": {
+                            "temperatureValue": {
+                                "title": "",
+                                "description": "",
+                                "type": "number",
+                                "minimum": 240,
+                                "maximum": 380,
+                                "step": 0.5,
+                                "default": 0
+                            },
+                            "unit": {}
+                        },
+                        "additionalProperties": false
+                    }
+                }
+            ]
+        }
+    }
+}

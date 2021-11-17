@@ -1,0 +1,272 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "required": [
+        "$schema",
+        "required",
+        "properties",
+        "additionalProperties"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "title": "Path to dependency schema file",
+            "description": "Path to dependency schema file annotating this depenency file. Use the relative path to the meta folder and the dependency-schema.json.",
+            "type": "string",
+            "default": "../../../../../../../meta-schemas/components/meta/dependency-schema.json",
+            "enum": [
+                "../../../../../../../meta-schemas/components/meta/dependency-schema.json"
+            ]
+        },
+        "required": {
+            "title": "Holds all property names that are required",
+            "description": "Holds the property names that must be set in the dependency file.",
+            "type": "array",
+            "default": [
+                "$schema",
+                "number",
+                "senderId",
+                "repeating",
+                "destination",
+                "origin",
+                "direction"
+            ],
+            "additionalItems": true,
+            "items": [
+                {
+                    "type": "string",
+                    "enum": [
+                        "$schema"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "number"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "senderId"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "repeating"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "destination"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "origin"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "enum": [
+                        "direction"
+                    ]
+                }
+            ]
+        },
+        "properties": {
+            "title": "Holds all property and the additional properties of the dependency",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "title": "Empty schema property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "number": {
+                    "title": "Empty number identification property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "senderId": {
+                    "title": "Empty sender identification property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "repeating": {
+                    "title": "Empty repeating property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "destination": {
+                    "title": "Empty destination property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "origin": {
+                    "title": "Empty origin property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "direction": {
+                    "title": "Empty direction property",
+                    "description": "Needs to be empty as to not overwrite the information of the parent schema.",
+                    "type": "object",
+                    "default": {},
+                    "enum": [
+                        {}
+                    ]
+                },
+                "unused": {
+                    "$ref": "../../transport-layers/enocean/eep-meta-schema.json#/definitions/unused"
+                }
+            },
+            "patternProperties": {
+                "^[a-z][a-zA-Z0-9]*$": {
+                    "title": "Holds additional property information",
+                    "description": "To extend the functionality of the parent schema.",
+                    "type": "object",
+                    "required": [
+                        "title",
+                        "description"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "title": "Give your property a title",
+                            "description": "Please use a title for your property to better describe what this property stands for.",
+                            "type": "string"
+                        },
+                        "description": {
+                            "title": "Give your property a description",
+                            "description": "This description can be used to further explain what the property is used for.",
+                            "type": "string"
+                        },
+                        "$ref": {
+                            "type": "string",
+                            "default": "../../../../../../../meta-schemas/components/xxx-schema.json#/definitions/myProperty#",
+                            "pattern": "^../../../../../../../meta-schemas/components/|[a-zA-Z0-9_-]$"
+                        },
+                        "bitPosition": {
+                            "title": "Position of the first bit reserved for the command value",
+                            "description": "Possition may be negative if command must be read from the right.",
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "bitLength": {
+                            "title": "Lenth of the reserved bits for the values",
+                            "type": "integer",
+                            "default": 8,
+                            "minimum": 1
+                        },
+                        "offset": {
+                            "title": "Describes which value corresponds to the zero bit",
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "encoding": {
+                            "title": "Describes the encoding of the information / how the information is to be interpreted",
+                            "type": "string",
+                            "enum": [
+                                "bigEndian",
+                                "littleEndian"
+                            ]
+                        },
+                        "unused": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "default": [
+                                        {
+                                            "from": 0,
+                                            "to": 0
+                                        },
+                                        {
+                                            "from": 0,
+                                            "to": 0
+                                        }
+                                    ],
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "from",
+                                            "to"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "from": {
+                                                "type": "integer"
+                                            },
+                                            "to": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "default": {
+                                        "from": 0,
+                                        "to": 0
+                                    },
+                                    "required": [
+                                        "from",
+                                        "to"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "from": {
+                                            "type": "integer"
+                                        },
+                                        "to": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "integer",
+                                    "default": 0
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "additionalProperties": {
+            "title": "Are additional properties allowed",
+            "description": "If ture properties are allowed to be used that are nod described here.",
+            "const": false
+        },
+        "allOf": {
+            "$ref": "../../transport-layers/enocean/eep-meta-schema.json#/definitions/conditional"
+        }
+    }
+}

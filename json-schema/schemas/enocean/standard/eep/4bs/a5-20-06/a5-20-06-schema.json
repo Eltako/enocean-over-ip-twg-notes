@@ -1,0 +1,107 @@
+{
+    "$schema": "../../../../../../meta-schemas/transport-layers/enocean/eep-meta-schema.json",
+    "required": [
+        "$schema",
+        "number",
+        "senderId",
+        "repeating",
+        "destination",
+        "origin",
+        "direction"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "enum": [
+                "../a5-20-06-schema.json"
+            ]
+        },
+        "number": {
+            "type": "string",
+            "default": "00-00-00",
+            "pattern": "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}"
+        },
+        "senderId": {
+            "title": "Identification of the sending device",
+            "description": "To identify your device you will need to send your sender identification to the controller.",
+            "type": "string",
+            "default": "",
+            "pattern": ""
+        },
+        "repeating": {
+            "title": "Repeating type",
+            "description": "Select between none, single and multiple repeat.",
+            "type": "string",
+            "default": "none",
+            "enum": [
+                "none",
+                "single",
+                "multiple"
+            ]
+        },
+        "destination": {
+            "title": "Destination name",
+            "description": "What is this JSON payloads destination?",
+            "type": "string",
+            "default": "controller",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor",
+                "device"
+            ]
+        },
+        "origin": {
+            "title": "Origin name",
+            "description": "What is the JSON payloads origin?",
+            "type": "string",
+            "default": "actuator",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor",
+                "device"
+            ]
+        },
+        "direction": {
+            "title": "Direction of the payload",
+            "description": "Specify the direction: Is the payload send \"from\" or \"to\" the controller?",
+            "type": "string",
+            "enum": [
+                "from",
+                "to"
+            ]
+        }
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "direction": {
+                        "const": "to"
+                    }
+                }
+            },
+            "then": {
+                "$ref": "./dependencies/directionTo.json#"
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "direction": {
+                        "const": "from"
+                    },
+                    "referenceRun": {
+                        "const": 0
+                    }
+                }
+            },
+            "then": {
+                "$ref": "./dependencies/directionFrom.json#"
+            }
+        }
+    ]
+}

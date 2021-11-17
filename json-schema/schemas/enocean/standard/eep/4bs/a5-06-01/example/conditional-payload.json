@@ -1,0 +1,14 @@
+{
+    "$schema": "../a5-06-01-schema.json",
+    "senderId": "controller0001",
+    "receiverId": "sensor0001",
+    "origin": "sensor",
+    "destination": "controller",
+    "supplyVoltage": {
+        "volts": 1.2
+    },
+    "illumination": {
+        "lux": 600
+    },
+    "rangeSelect": "Range acc. to DB_2 (ILL2)"
+}

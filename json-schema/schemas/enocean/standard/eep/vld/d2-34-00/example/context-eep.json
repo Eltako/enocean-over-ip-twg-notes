@@ -1,0 +1,11 @@
+{
+    "$schema": "../d2-34-00-schema.json",
+    "number": "00-00-00",
+    "senderId": "D2-34-00",
+    "repeating": "none",
+    "destination": "",
+    "origin": "actuator",
+    "direction": "to",
+    "command": 3,
+    "channel": "*"
+}

@@ -1,0 +1,165 @@
+{
+    "$schema": "./meta/value-meta-schema.json",
+    "definitions": {
+        "temperature": {
+            "title": "",
+            "description": "",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "",
+                    "description": "",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "step": 0.5,
+                    "default": 0
+                },
+                "unit": {
+                    "title": "",
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        },
+        "temperatureCelcius": {
+            "title": "",
+            "description": "",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "",
+                    "description": "",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "step": 0.5,
+                    "default": 0
+                },
+                "unit": {
+                    "title": "",
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        },
+        "temperature0to40CelciusHalfStep": {
+            "title": "Temperature value",
+            "description": "0 °C to 40 °C stepsize 0.5",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "Temperature Value",
+                    "description": "Value range allowed for the set point of the temperature.",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 40,
+                    "step": 0.5,
+                    "default": 0
+                },
+                "unit": {
+                    "title": "Temperature unit",
+                    "description": "Allowed unit for the temperature set point (only °C allowed).",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        },
+        "temperature0to80CelciusQuarterStep": {
+            "title": "Temperature value",
+            "description": "0 °C to 80 °C stepsize 0.25",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "Temperature Value",
+                    "description": "Value range allowed for the set point of the temperature.",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 80,
+                    "step": 0.25,
+                    "default": 0
+                },
+                "unit": {
+                    "title": "Temperature unit",
+                    "description": "Allowed unit for the temperature set point (only °C allowed).",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        },
+        "temperature0to40CelciusQuarterStep": {
+            "title": "Temperature RCU",
+            "description": "Temperature 0 to 40 °C stepsize 0.25",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "",
+                    "description": "",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 40,
+                    "step": 0.25,
+                    "unused": {
+                        "from": 161,
+                        "to": 254
+                    },
+                    "default": 0
+                },
+                "unit": {
+                    "title": "",
+                    "description": "",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        },
+        "temperatureLocalOffset": {
+            "title": "Temperature Component for Local Offset",
+            "description": "To represent the absolute temperature value for the Local Offset in Local Offset Mode 1 (Temperature -5 to 45 °C stepsize 0.5).",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "temperatureValue": {
+                    "title": "Absolute temperature value",
+                    "description": "Including the local offset added or subtracted.",
+                    "type": "number",
+                    "minimum": -5,
+                    "maximum": 45,
+                    "step": 0.5,
+                    "default": 0
+                },
+                "unit": {
+                    "title": "Unit of the temperature",
+                    "description": "Only units allowed for the absolute local offset temperature (°C).",
+                    "type": "string",
+                    "enum": [
+                        "°C"
+                    ],
+                    "default": "°C"
+                }
+            }
+        }
+    }
+}

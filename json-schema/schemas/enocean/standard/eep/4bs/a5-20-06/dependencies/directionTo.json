@@ -1,0 +1,306 @@
+{
+    "$schema": "../../../../../../../meta-schemas/components/meta/dependency-schema.json",
+    "required": [
+        "$schema",
+        "number",
+        "senderId",
+        "repeating",
+        "destination",
+        "origin",
+        "direction"
+    ],
+    "properties": {
+        "$schema": {},
+        "number": {},
+        "senderId": {},
+        "repeating": {},
+        "destination": {},
+        "origin": {},
+        "direction": {},
+        "valvePosition": {
+            "title": "Example property: Reference to a schema definition",
+            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+            "$ref": "../../../../../../../meta-schemas/components/percentage-schema.json#/definitions/valvePosition",
+            "bitPosition": 0,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian",
+            "unused": {
+                "from": 101,
+                "to": 255
+            }
+        },
+        "temperatureSetpoint": {
+            "title": "Example property: Reference to a schema definition",
+            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+            "$ref": "../../../../../../../meta-schemas/components/temperature-schema.json#/definitions/temperature0to40CelciusHalfStep#",
+            "bitPosition": 0,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian",
+            "unused": {
+                "from": 81,
+                "to": 255
+            }
+        },
+        "temperatureRCU": {
+            "title": "Temperature RCU",
+            "description": "Room temperature from room control unit (RCU)",
+            "$ref": "../../../../../../../meta-schemas/components/temperature-schema.json#/definitions/temperature0to40CelciusQuarterStep#",
+            "bitPosition": 8,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian",
+            "unused":{
+                "from": 161,
+                "to": 254
+            }
+        },
+        "referenceRun": {
+            "title": "Run type",
+            "description": "Execute reference-run",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/referenceRun#",
+            "bitPosition": 16,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "commOnInterval": {
+            "title": "Communication on interval",
+            "description": "Radio duty cycle selection. Find additional information in the Appendix.",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/commOnInterval#",
+            "bitPosition": 17,
+            "bitLength": 3,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "summerBit": {
+            "title": "Summer Bit",
+            "description": "Initiate summer mode (reduced communication)",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/summerBit#",
+            "bitPosition": 20,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "setPointSelection": {
+            "title": "Set point selection",
+            "description": "Setpoint selection for DB3",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/setPointSelection#",
+            "bitPosition": 21,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "temperatureSelection": {
+            "title": "Temperature Selection",
+            "description": "Temperature requested from the actuator (DB1.7...DB1.0, DIR-1, TMP)",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/temperatureSelection#",
+            "bitPosition": 22,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "standby": {
+            "title": "Standby",
+            "description": "Enter standby mode, refer to Appendix",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/standby#",
+            "bitPosition": 23,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "learnBit": {
+            "title": "Learn bit",
+            "description": "Is the acctuator in learn mode sending Teach-in telegrams.",
+            "$ref": "../../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/learnBit#",
+            "bitPosition": 28,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "unused": [
+            {
+                "from": 24,
+                "to": 27
+            },
+            {
+                "from": 29,
+                "to": 31
+            }
+        ]
+    },
+    "additionalProperties": false,
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "referenceRun": {
+                        "const": "Reference-run"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "referenceRun"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "referenceRun": {},
+                    "setPointSelection": {},
+                    "temperatureRCU": {},
+                    "commOnInterval": {},
+                    "valvePosition": {},
+                    "temperatureSetpoint": {}
+                },
+                "additionalProperties": false
+            },
+            "else": {
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {
+                                "referenceRun": {
+                                    "const": "Normal operation"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "$schema",
+                                "number",
+                                "senderId",
+                                "repeating",
+                                "destination",
+                                "origin",
+                                "direction",
+                                "referenceRun",
+                                "setPointSelection",
+                                "commOnInterval"
+                            ],
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "temperatureRCU": {},
+                                "temperatureSetpoint": {},
+                                "valvePosition": {},
+                                "referenceRun": {},
+                                "commOnInterval": {},
+                                "summerBit": {},
+                                "setPointSelection": {},
+                                "temperatureSelection": {},
+                                "standby": {},
+                                "learnBit": {}
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "setPointSelection": {
+                                    "const": "Valve position mode (0...100%)"
+                                }
+                            }
+                        },
+                        "then": {
+                            "required": [
+                                "$schema",
+                                "number",
+                                "senderId",
+                                "repeating",
+                                "destination",
+                                "origin",
+                                "direction",
+                                "temperatureRCU",
+                                "valvePosition",
+                                "referenceRun",
+                                "commOnInterval",
+                                "summerBit",
+                                "setPointSelection",
+                                "temperatureSelection",
+                                "standby",
+                                "learnBit"
+                            ],
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "valvePosition": {},
+                                "temperatureRCU": {},
+                                "referenceRun": {},
+                                "commOnInterval": {},
+                                "summerBit": {},
+                                "setPointSelection": {},
+                                "temperatureSelection": {},
+                                "standby": {},
+                                "learnBit": {}
+                            },
+                            "additionalProperties": false
+                        },
+                        "else": {
+                            "required": [
+                                "$schema",
+                                "number",
+                                "senderId",
+                                "repeating",
+                                "destination",
+                                "origin",
+                                "direction",
+                                "temperatureSetpoint",
+                                "referenceRun",
+                                "commOnInterval",
+                                "summerBit",
+                                "setPointSelection",
+                                "temperatureSelection",
+                                "standby",
+                                "learnBit"
+                            ],
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "temperatureSetpoint": {},
+                                "temperatureRCU": {},
+                                "referenceRun": {},
+                                "commOnInterval": {},
+                                "summerBit": {},
+                                "setPointSelection": {},
+                                "temperatureSelection": {},
+                                "standby": {},
+                                "learnBit": {}
+                            },
+                            "additionalProperties": false
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

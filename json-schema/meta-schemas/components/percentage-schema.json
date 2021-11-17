@@ -1,0 +1,33 @@
+{
+    "$schema": "./meta/value-meta-schema.json",
+    "definitions": {
+        "valvePosition": {
+            "title": "Valve Position",
+            "description": "Value 0% - 100% in 1% steps",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "valvePositionValue": {
+                    "title": "Valve position value range",
+                    "description": "Range allowed for the valve position.",
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "step": 1,
+                    "unused": {
+                        "from": 101,
+                        "to": 255
+                    }
+                },
+                "unit": {
+                    "title": "Valve position unit",
+                    "description": "Allowed unit for the valve position value (only % allowed).",
+                    "type": "string",
+                    "enum": [
+                        "%"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "$schema": "../a5-20-06-schema.json",
+    "number": "A5-20-06",
+    "senderId": "Sender-ID",
+    "repeating": "none",
+    "destination": "controller",
+    "origin": "actuator",
+    "direction": "to",
+    "valvePosition": {
+        "valvePositionValue": 30,
+        "unit": "%"
+    },
+    "temperatureRCU": {
+        "temperatureValue": 30,
+        "unit": "°C"
+    },
+    "referenceRun": "Normal operation",
+    "commOnInterval": "AUTO",
+    "summerBit": "Normal operation",
+    "setPointSelection": "Valve position mode (0...100%)",
+    "temperatureSelection": "Ambient sensor temp",
+    "standby": "Normal operation",
+    "learnBit": "Data telegram"
+}

@@ -1,0 +1,1380 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "definitions": {
+        "bitPosition": {
+            "title": "Position of the first bit reserved for the command value",
+            "description": "Possition may be negative if command must be read from the right.",
+            "type": "integer",
+            "default": 0
+        },
+        "bitLength": {
+            "title": "Lenth of the reserved bits for the values",
+            "type": "integer",
+            "default": 8,
+            "minimum": 1
+        },
+        "offset": {
+            "title": "Describes which value corresponds to the zero bit",
+            "type": "integer",
+            "default": 0
+        },
+        "encoding": {
+            "title": "Describes the encoding of the information / how the information is to be interpreted",
+            "type": "string",
+            "enum": [
+                "bigEndian",
+                "littleEndian"
+            ]
+        },
+        "unused": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "default": [
+                        {
+                            "from": 0,
+                            "to": 0
+                        },
+                        {
+                            "from": 0,
+                            "to": 0
+                        }
+                    ],
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "from",
+                            "to"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "from": {
+                                "type": "integer"
+                            },
+                            "to": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "default": {
+                        "from": 0,
+                        "to": 0
+                    },
+                    "required": [
+                        "from",
+                        "to"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "from": {
+                            "type": "integer"
+                        },
+                        "to": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                {
+                    "type": "integer",
+                    "default": 0
+                }
+            ]
+        },
+        "conditional": {
+            "title": "Additional properties dependent on others",
+            "description": "If there are properties dependent on other properties you may define these in here. Use the examples to create dependencies in your JSON schema.",
+            "type": "array",
+            "examples": [
+                [
+                    {
+                        "if": {
+                            "properties": {
+                                "yourDependencyProperty": {
+                                    "const": "true"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "yourProperty": {
+                                    "$ref": "../../components/example-schema.json#/definitions/exampleProperty",
+                                    "bitPosition": 0,
+                                    "bitLength": 8,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    }
+                ],
+                [
+                    {
+                        "if": {
+                            "properties": {
+                                "yourDependencyProperty": {
+                                    "const": "false"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "yourProperty": {
+                                    "type": "integer",
+                                    "query": [
+                                        {
+                                            "position": 0,
+                                            "value": "false"
+                                        },
+                                        {
+                                            "position": 1,
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "enum": [
+                                        0,
+                                        1
+                                    ],
+                                    "bitPosition": 0,
+                                    "bitLength": 1,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "anyOf": []
+                        }
+                    }
+                ]
+            ],
+            "items": {
+                "title": "Specify property values and the resulting variation",
+                "description": "You will need to specify the value of the determining Property in \"if\" and the resulting changes to the schema in \"then\". You may branch deeper in the \"then\" property by using \"allOf\" again.",
+                "type": "object",
+                "examples": [
+                    {
+                        "if": {
+                            "properties": {
+                                "yourDependencyProperty": {
+                                    "const": "true"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "yourProperty": {
+                                    "$ref": "../../components/example-schema.json#/definitions/exampleProperty",
+                                    "bitPosition": 0,
+                                    "bitLength": 8,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "yourDependencyProperty": {
+                                    "const": "false"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "yourProperty": {
+                                    "type": "integer",
+                                    "query": [
+                                        {
+                                            "position": 0,
+                                            "value": "false"
+                                        },
+                                        {
+                                            "position": 1,
+                                            "value": "true"
+                                        }
+                                    ],
+                                    "enum": [
+                                        0,
+                                        1
+                                    ],
+                                    "bitPosition": 0,
+                                    "bitLength": 1,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "anyOf": []
+                        }
+                    }
+                ],
+                "required": [
+                    "if",
+                    "then"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "if": {
+                        "title": "Value of conditonal property",
+                        "description": "In this property you need to set the specific value it needs to be to change the properties in the schema. You will need to use your property name in the \"properties\" and specify the value with \"const\".",
+                        "type": "object",
+                        "default": {
+                            "properties": {
+                                "yourDependencyProperty": {
+                                    "const": "true"
+                                }
+                            }
+                        },
+                        "required": [
+                            "properties"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "properties": {
+                                "type": "object",
+                                "default": {
+                                    "yourDependencyProperty": {
+                                        "const": "true"
+                                    }
+                                },
+                                "additionalProperties": false,
+                                "properties": {
+                                    "direction": {
+                                        "type": "object",
+                                        "default": {
+                                            "const": "to"
+                                        },
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "const": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "to",
+                                                    "from"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "command": {}
+                                },
+                                "patternProperties": {
+                                    "^[a-z][a-zA-Z0-9]*$": {
+                                        "type": "object",
+                                        "default": {
+                                            "const": 0
+                                        },
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "const": {
+                                                "oneOf": [
+                                                    {
+                                                        "type": "string"
+                                                    },
+                                                    {
+                                                        "type": "number"
+                                                    },
+                                                    {
+                                                        "type": "boolean"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "required": {
+                                "title": "Required conditional properties",
+                                "description": "Set up all required properties for the condition set by the \"if\" statement.",
+                                "type": "array",
+                                "examples": [
+                                    [
+                                        "yourDependencyProperty"
+                                    ]
+                                ],
+                                "additionalItems": false,
+                                "items": {
+                                    "title": "Names of required properties",
+                                    "description": "Required in this context will make sure to only apply this condition if the required property is set and not 'null'",
+                                    "type": "string",
+                                    "pattern": "^[a-z$][a-zA-Z0-9]*$"
+                                }
+                            }
+                        }
+                    },
+                    "then": {
+                        "title": "Additional properties based on the conditional property value",
+                        "description": "Based on the contidional property value declared in \"if\" you may add additional properties. You will need to add all properties declared in the main body as empty objects. Only the additional properties need to be declared in its entierty.",
+                        "type": "object",
+                        "examples": [
+                            {
+                                "required": [
+                                    "$schema",
+                                    "number",
+                                    "senderId",
+                                    "receiverId",
+                                    "repeating",
+                                    "destination",
+                                    "origin",
+                                    "newProperty"
+                                ],
+                                "properties": {
+                                    "$schema": {},
+                                    "number": {},
+                                    "senderId": {},
+                                    "receiverId": {},
+                                    "repeating": {},
+                                    "destination": {},
+                                    "origin": {},
+                                    "newProperty": {
+                                        "title": "Example property: Reference to a schema definition",
+                                        "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                                        "$ref": "../../components/example-schema.json#/definitions/exampleProperty",
+                                        "bitPosition": 0,
+                                        "bitLength": 8,
+                                        "offset": 0,
+                                        "encoding": "bigEndian",
+                                        "unused": {
+                                            "from": 0,
+                                            "to": 0
+                                        }
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "oneOf": [
+                            {
+                                "required": [
+                                    "$ref"
+                                ]
+                            },
+                            {
+                                "required": [
+                                ]
+                            }
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "$ref": {
+                                "title": "Schema dependency reference",
+                                "description": "Reference to the schema dependency with further schema code stored in the dependency folder of the schema EEP.",
+                                "type": "string",
+                                "pattern": "^(./dependencies/)+([a-zA-Z0-9_-])+(.json#)$"
+                            },
+                            "required": {
+                                "title": "Required conditional properties",
+                                "description": "Set up all required properties for the condition set by the \"if\" statement.",
+                                "type": "array",
+                                "examples": [
+                                    [
+                                        "$schema",
+                                        "number",
+                                        "senderId",
+                                        "receiverId",
+                                        "repeating",
+                                        "destination",
+                                        "origin",
+                                        "newProperty"
+                                    ]
+                                ],
+                                "additionalItems": false,
+                                "items": {
+                                    "title": "Names of required properties",
+                                    "description": "Set up all required properties for the condition set by the \"if\" statement. Property names must begin with a lower case letter. Please use camel case for better readablility",
+                                    "type": "string",
+                                    "pattern": "^[a-z$][a-zA-Z0-9]*$"
+                                }
+                            },
+                            "properties": {
+                                "type": "object",
+                                "example": [
+                                    {
+                                        "$schema": {},
+                                        "number": {},
+                                        "senderId": {},
+                                        "receiverId": {},
+                                        "repeating": {},
+                                        "destination": {},
+                                        "origin": {},
+                                        "direction": {},
+                                        "newProperty": {},
+                                        "anyOf": []
+                                    }
+                                ],
+                                "required": [
+                                    "$schema",
+                                    "number",
+                                    "senderId",
+                                    "receiverId",
+                                    "repeating",
+                                    "destination",
+                                    "origin"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "$schema": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "number": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "senderId": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "receiverId": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "repeating": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "destination": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "origin": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "direction": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "command": {
+                                        "title": "Initial definition of property",
+                                        "type": "object",
+                                        "default": {}
+                                    },
+                                    "unused": {
+                                        "title": "To set unused, reserved or empty data blocks",
+                                        "anyOf": [
+                                            {
+                                                "type": "array",
+                                                "default": [
+                                                    {
+                                                        "from": 0,
+                                                        "to": 0
+                                                    },
+                                                    {
+                                                        "from": 0,
+                                                        "to": 0
+                                                    }
+                                                ],
+                                                "items": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "from",
+                                                        "to"
+                                                    ],
+                                                    "additionalProperties": false,
+                                                    "properties": {
+                                                        "from": {
+                                                            "type": "integer"
+                                                        },
+                                                        "to": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "object",
+                                                "default": {
+                                                    "from": 0,
+                                                    "to": 0
+                                                },
+                                                "required": [
+                                                    "from",
+                                                    "to"
+                                                ],
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "from": {
+                                                        "type": "integer"
+                                                    },
+                                                    "to": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "type": "integer",
+                                                "default": 0
+                                            }
+                                        ]
+                                    }
+                                },
+                                "patternProperties": {
+                                    "^[a-z][a-zA-Z0-9]*$": {
+                                        "title": "Any property name that fits the set pattern",
+                                        "description": "Pattern allows only property names that start with a lowecase letter. Please use camelcase for better readability.",
+                                        "type": "object",
+                                        "examples": [
+                                            {
+                                                "title": "Example property: Reference to a schema definition",
+                                                "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                                                "$ref": "../../components/example-schema.json#/definitions/exampleProperty",
+                                                "bitPosition": 0,
+                                                "bitLength": 8,
+                                                "offset": 0,
+                                                "encoding": "bigEndian",
+                                                "unused": {
+                                                    "from": 0,
+                                                    "to": 0
+                                                }
+                                            }
+                                        ],
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "additionalProperties": false
+                                            },
+                                            {
+                                                "required": [
+                                                    "title",
+                                                    "$ref"
+                                                ],
+                                                "additionalProperties": false,
+                                                "properties": {
+                                                    "title": {
+                                                        "title": "Give your property a title",
+                                                        "description": "Please use a title for your property to better describe what this property stands for.",
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "title": "Give your property a description",
+                                                        "description": "This description can be used to further explain what the property is used for.",
+                                                        "type": "string"
+                                                    },
+                                                    "$ref": {
+                                                        "type": "string",
+                                                        "default": "../../../../schemaDefinitions/xxx.json#"
+                                                    },
+                                                    "bitPosition": {
+                                                        "$ref": "#/definitions/bitPosition"
+                                                    },
+                                                    "bitLength": {
+                                                        "$ref": "#/definitions/bitLength"
+                                                    },
+                                                    "offset": {
+                                                        "$ref": "#/definitions/offset"
+                                                    },
+                                                    "encoding": {
+                                                        "$ref": "#/definitions/encoding"
+                                                    },
+                                                    "unused": {
+                                                        "$ref": "#/definitions/unused"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "additionalProperties": {
+                                "title": "To only allow properties of a specific pattern",
+                                "type": "boolean",
+                                "default": false,
+                                "enum": [
+                                    true,
+                                    false
+                                ]
+                            },
+                            "allOf": {
+                                "$ref": "#/definitions/conditional"
+                            }
+                        }
+                    },
+                    "else": {
+                        "title": "Logic if condition is not met",
+                        "description": "Hold annotation structure if the condition in the \"if\"-property is NOT met.",
+                        "oneOf": [
+                            {
+                                "required": [
+                                    "allOf"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "required",
+                                    "additionalProperties",
+                                    "properties"
+                                ]
+                            }
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "allOf": {
+                                "$ref": "#/definitions/conditional"
+                            },
+                            "required": {
+                                "title": "Properties that must be defninde",
+                                "description": "Properties named here must be defined in the subsequent properties-property.",
+                                "type": "array",
+                                "additionalItems": false,
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": {
+                                "type": "boolean",
+                                "const": false
+                            },
+                            "properties": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "$schema",
+        "properties"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "title": "Path to meta schema",
+            "description": "With the $schema property you may name the path to the meta schema needet for your usecase.",
+            "type": "string",
+            "default": "../../../../../MetaSchemata/eep-meta-schema.json"
+        },
+        "required": {
+            "title": "All Properties that must be set",
+            "description": "Required defines all propertie names that need to be set in the base schema which may contain further required properties.",
+            "type": "array",
+            "additionalItems": false,
+            "default": [
+                "$schema",
+                "number",
+                "senderId",
+                "receiverId",
+                "repeating",
+                "destination",
+                "origin"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "additionalProperties": {
+            "title": "To restrict which properties are allowed to use",
+            "description": "When Additional properies is set to false only properies which are described in \"properties\" and \"patternProperties\" are allowed to be used (white listing).",
+            "type": "boolean",
+            "enum": [
+                false
+            ]
+        },
+        "properties": {
+            "title": "Description of all specific properties",
+            "description": "You may use this level to blueprint your payload JSON. This may contain nested properties and arrays that describe further objects in the schema.",
+            "type": "object",
+            "required": [
+                "$schema",
+                "number",
+                "senderId",
+                "receiverId",
+                "repeating",
+                "destination",
+                "origin"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "$schema": {
+                    "title": "Path to your schema",
+                    "description": "Be sure to enter the correct name of your schema here. This will force all JSON files referencing this schema data to use the correct name of the schema (self reference check).",
+                    "type": "object",
+                    "required": [
+                        "type",
+                        "enum"
+                    ],
+                    "default": {
+                        "type": "string",
+                        "enum": [
+                            "path-to-my-schema.json"
+                        ]
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "string"
+                            ],
+                            "default": "string"
+                        },
+                        "enum": {
+                            "type": "array",
+                            "default": [
+                                "path-to-my-schema.json"
+                            ],
+                            "minItems": 1,
+                            "maxItems": 1,
+                            "additionalItems": false,
+                            "items": {
+                                "type": "string",
+                                "pattern": "^(../)+([a-zA-Z0-9_-])+(.json)$"
+                            }
+                        }
+                    }
+                },
+                "number": {
+                    "title": "Identification number of the EEP",
+                    "description": "With \"pattern\" the number must have a specific form, in this case the string must contain three hexadecimal numbers seperated by a dash.",
+                    "type": "object",
+                    "default": {
+                        "type": "string",
+                        "default": "00-00-00",
+                        "pattern": "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}"
+                    },
+                    "required": [
+                        "type",
+                        "default",
+                        "pattern"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "default": "00-00-00",
+                            "enum": [
+                                "00-00-00"
+                            ]
+                        },
+                        "pattern": {
+                            "default": "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}",
+                            "enum": [
+                                "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}"
+                            ]
+                        }
+                    }
+                },
+                "senderId": {
+                    "title": "Identification of the profile sender",
+                    "description": "To identify the sender of the payload a identification is needed. This identification can vary from device to device.",
+                    "type": "object",
+                    "default": {
+                        "title": "Identification of the sending device",
+                        "description": "To identify your device you will need to send your sender identification to the controller.",
+                        "type": "string",
+                        "default": "",
+                        "pattern": ""
+                    },
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "default"
+                    ],
+                    "additionalItems": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "default": "Identification of the sending device",
+                            "enum": [
+                                "Identification of the sending device"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "default": "To identify your device you will need to send your sender identification to the controller.",
+                            "enum": [
+                                "To identify your device you will need to send your sender identification to the controller."
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "enum": [
+                                ""
+                            ]
+                        },
+                        "pattern": {
+                            "title": "Pattern to describe the form of your identification",
+                            "description": "You may use this pattern property to formulate a regular expression to check if the sender identification is written correctly.",
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "receiverId": {
+                    "title": "Identification of the profile sender",
+                    "description": "To identify the sender of the payload a identification is needed. This identification can vary from device to device.",
+                    "type": "object",
+                    "default": {
+                        "title": "Identification of the sending device",
+                        "description": "To identify your device you will need to send your sender identification to the controller.",
+                        "type": "string",
+                        "default": "",
+                        "pattern": ""
+                    },
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "default"
+                    ],
+                    "additionalItems": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "default": "Identification of the sending device",
+                            "enum": [
+                                "Identification of the sending device"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "default": "To identify your device you will need to send your sender identification to the controller.",
+                            "enum": [
+                                "To identify your device you will need to send your sender identification to the controller."
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "enum": [
+                                ""
+                            ]
+                        },
+                        "pattern": {
+                            "title": "Pattern to describe the form of your identification",
+                            "description": "You may use this pattern property to formulate a regular expression to check if the sender identification is written correctly.",
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                },
+                "repeating": {
+                    "type": "object",
+                    "default": {
+                        "title": "Repeating type",
+                        "description": "Select between none, single and multiple repeat.",
+                        "type": "string",
+                        "default": "none",
+                        "enum": [
+                            "none",
+                            "single",
+                            "multiple"
+                        ]
+                    },
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "default",
+                        "enum"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "type": "string",
+                            "enum": [
+                                "none"
+                            ]
+                        },
+                        "enum": {
+                            "type": "array",
+                            "default": [
+                                "none",
+                                "single",
+                                "multiple"
+                            ],
+                            "additionalItems": false,
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "none"
+                                    ]
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "single"
+                                    ]
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "multiple"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "destination": {
+                    "title": "Payload destination name",
+                    "description": "What is the destination of the payload? You may use a pattern or an enum to specify specific names. Default values may be used as reference.",
+                    "type": "object",
+                    "default": {
+                        "title": "Destination name",
+                        "description": "What is this JSON payloads destination?",
+                        "type": "string",
+                        "default": "controller",
+                        "enum": [
+                            "actuator",
+                            "controller",
+                            "gateway",
+                            "sensor"
+                        ]
+                    },
+                    "required": [
+                        "type",
+                        "default"
+                    ],
+                    "additionalItems": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "default": "Destination name",
+                            "enum": [
+                                "Destination name"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "default": "What is this JSON payloads destination?",
+                            "enum": [
+                                "What is this JSON payloads destination?"
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "type": "string",
+                            "default": "controller"
+                        },
+                        "enum": {
+                            "title": "Possible destination names",
+                            "description": "If only specific names are allowed use this property.",
+                            "type": "array",
+                            "default": [
+                                "actuator",
+                                "controller",
+                                "gateway",
+                                "sensor"
+                            ],
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "pattern": {
+                            "title": "Pattern for destination name",
+                            "description": "If only names of a specific form are allowed use this property.",
+                            "type": "string"
+                        }
+                    }
+                },
+                "origin": {
+                    "title": "ID of payload destination",
+                    "description": "What is the destination of the payload? You may use a pattern or an enum to specify specific names. Default values may be used as reference.",
+                    "type": "object",
+                    "default": {
+                        "title": "Origin name",
+                        "description": "What is the JSON payloads origin?",
+                        "type": "string",
+                        "default": "actuator",
+                        "enum": [
+                            "actuator",
+                            "controller",
+                            "gateway",
+                            "sensor"
+                        ]
+                    },
+                    "required": [
+                        "type",
+                        "default"
+                    ],
+                    "additionalItems": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "default": "Origin name",
+                            "enum": [
+                                "Origin name"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "default": "What is the JSON payloads origin?",
+                            "enum": [
+                                "What is the JSON payloads origin?"
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "default": {
+                            "type": "string",
+                            "default": "actuator"
+                        },
+                        "enum": {
+                            "title": "Possible destination names",
+                            "description": "If only specific names are allowed use this property.",
+                            "type": "array",
+                            "default": [
+                                "actuator",
+                                "controller",
+                                "gateway",
+                                "sensor"
+                            ],
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "pattern": {
+                            "title": "Pattern for destination name",
+                            "description": "If only names of a specific form are allowed use this property.",
+                            "type": "string"
+                        }
+                    }
+                },
+                "direction": {
+                    "title": "EEP specific: direction of the profile",
+                    "description": "Depending on the direction the payload of a profile may change, the direction must therfore be specified. Is the payload send \"from\" or \"to\" the controller?",
+                    "type": "object",
+                    "default": {
+                        "title": "Direction of the payload",
+                        "description": "Specify the direction: Is the payload send \"from\" or \"to\" the controller?",
+                        "type": "string",
+                        "enum": [
+                            "from",
+                            "to"
+                        ]
+                    },
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "enum"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "enum": [
+                                "Direction of the payload"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "enum": [
+                                "Specify the direction: Is the payload send \"from\" or \"to\" the controller?"
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "string"
+                            ]
+                        },
+                        "enum": {
+                            "type": "array",
+                            "default": [
+                                "from",
+                                "to"
+                            ],
+                            "additionalItems": false,
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "from"
+                                    ]
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "to"
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+                "command": {
+                    "title": "EEP specific: command value of the payload",
+                    "description": "Depending on the command value the property layout may change. Therefore the command value must be set with an integer number. You may change the possition and length of the command in the memory.",
+                    "type": "object",
+                    "default": {
+                        "title": "Command value",
+                        "description": "Set the specific command value used by the EEP payload as an whole number.",
+                        "type": "integer",
+                        "default": 0,
+                        "minimum": 0,
+                        "maximum": 16,
+                        "bitPosition": 0,
+                        "bitLength": 4,
+                        "offset": 0,
+                        "encoding": "bigEndian",
+                        "unused": [
+                            {
+                                "from": 0,
+                                "to": 2
+                            },
+                            {
+                                "from": 8,
+                                "to": 16
+                            }
+                        ]
+                    },
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "default",
+                        "bitPosition",
+                        "bitLength",
+                        "offset",
+                        "encoding",
+                        "unused"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "enum": [
+                                "Command value"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "enum": [
+                                "Set the specific command value used by the EEP payload as an whole number."
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "integer"
+                            ]
+                        },
+                        "default": {
+                            "type": "integer"
+                        },
+                        "minimum": {
+                            "type": "integer"
+                        },
+                        "maximum": {
+                            "type": "integer"
+                        },
+                        "bitPosition": {
+                            "$ref": "#/definitions/bitPosition"
+                        },
+                        "bitLength": {
+                            "$ref": "#/definitions/bitLength"
+                        },
+                        "offset": {
+                            "$ref": "#/definitions/offset"
+                        },
+                        "encoding": {
+                            "$ref": "#/definitions/encoding"
+                        },
+                        "unused": {
+                            "$ref": "#/definitions/unused"
+                        }
+                    }
+                },
+                "unused": {
+                    "$ref": "#/definitions/unused"
+                }
+            },
+            "patternProperties": {
+                "^[a-z][a-zA-Z0-9]*$": {
+                    "title": "Any property name that fits the set pattern",
+                    "description": "Pattern allows only property names that start with a lowecase letter. Please use camelcase for better readability.",
+                    "type": "object",
+                    "examples": [
+                        {
+                            "title": "Example property: Reference to a schema definition",
+                            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                            "$ref": "../../components/example-schema.json#/definitions/exampleProperty",
+                            "bitPosition": 0,
+                            "bitLength": 8,
+                            "offset": 0,
+                            "encoding": "bigEndian",
+                            "unused": {
+                                "from": 0,
+                                "to": 0
+                            }
+                        }
+                    ],
+                    "anyOf": [
+                        {
+                            "type": "object",
+                            "examples": [
+                                {}
+                            ],
+                            "additionalProperties": false
+                        },
+                        {
+                            "type": "object",
+                            "examples": [
+                                {
+                                    "enum": [
+                                        ""
+                                    ]
+                                }
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "enum": {
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "maxItems": 1,
+                                    "items": {
+                                        "oneOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "number"
+                                            },
+                                            {
+                                                "type": "boolean"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "required": [
+                                "title",
+                                "$ref"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "title": {
+                                    "title": "Give your property a title",
+                                    "description": "Please use a title for your property to better describe what this property stands for.",
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "title": "Detailed description of the property",
+                                    "description": "Optional: Give a detailed description on the property, what it represents and what it is used for.",
+                                    "type": "string"
+                                },
+                                "definitions": {
+                                    "title": "Give your property a description",
+                                    "description": "This description can be used to further explain what the property is used for.",
+                                    "type": "string"
+                                },
+                                "$ref": {
+                                    "type": "string",
+                                    "default": "../../../../schemaDefinitions/xxx.json#"
+                                },
+                                "bitPosition": {
+                                    "$ref": "#/definitions/bitPosition"
+                                },
+                                "bitLength": {
+                                    "$ref": "#/definitions/bitLength"
+                                },
+                                "offset": {
+                                    "$ref": "#/definitions/offset"
+                                },
+                                "encoding": {
+                                    "$ref": "#/definitions/encoding"
+                                },
+                                "unused": {
+                                    "$ref": "#/definitions/unused"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "allOf": {
+            "$ref": "#/definitions/conditional"
+        }
+    }
+}

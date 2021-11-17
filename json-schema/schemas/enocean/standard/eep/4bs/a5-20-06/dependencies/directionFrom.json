@@ -1,0 +1,352 @@
+{
+    "$schema": "../../../../../../../meta-schemas/components/meta/dependency-schema.json",
+    "required": [
+        "$schema",
+        "number",
+        "senderId",
+        "repeating",
+        "destination",
+        "origin",
+        "direction"
+    ],
+    "properties": {
+        "$schema": {},
+        "number": {},
+        "senderId": {},
+        "repeating": {},
+        "destination": {},
+        "origin": {},
+        "direction": {},
+        "currentValvePosition": {
+            "title": "Current valve position",
+            "description": "Current valve position in procentage and a stepsize of 1.",
+            "$ref": "../../../../../../../meta-schemas/components/percentage-schema.json#/definitions/valvePosition#",
+            "bitPosition": 0,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "localOffsetMode": {
+            "title": "Local offset mode",
+            "description": "Local Offset Mode defines the format of Local Offset.",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/localOffsetMode#",
+            "bitPosition": 8,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "localOffset": {
+            "title": "Standin for conditional",
+            "description": "This values parameters may change depending on the Local Offset Mode, defined by the payload."
+        },
+        "temperature": {
+            "title": "Standin for conditional",
+            "description": "This values parameters may change depending on the Temperature Selection, defined by the payload."
+        },
+        "temperatureSelection": {
+            "title": "Temperature selecton mode",
+            "description": "Indicates which sensor is used for Temperature",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/temperatureSelection#",
+            "bitPosition": 24,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "energyInputEnabled": {
+            "title": "Energy harvesting enabled",
+            "description": "Harvesting status",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/energyInputEnabled#",
+            "bitPosition": 25,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "energyStorage": {
+            "description": "Charge level of energy storage",
+            "title": "Energy storage level",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/energyStorage#",
+            "bitPosition": 26,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "windowOpenDirection": {
+            "title": "Window open detection",
+            "description": "Window open detection",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/windowOpenDetection#",
+            "bitPosition": 27,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "learnBit": {
+            "title": "Learn mode",
+            "description": "Telegram type",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/learnBit#",
+            "bitPosition": 28,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "radioComError": {
+            "title": "Radio communication error timeout",
+            "description": "Indicates radio communication errors",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/radioComError#",
+            "bitPosition": 29,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "radioSingnalStrength": {
+            "title": "Radio signal strength",
+            "description": "Weak radio signal warning",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/radioSignalStrength#",
+            "bitPosition": 30,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "actuatorOstructed": {
+            "title": "Actuator obstructed",
+            "description": "Reports blocked actuator (motor)",
+            "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/actuatorObstructed#",
+            "bitPosition": 31,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        }
+    },
+    "additionalProperties": false,
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "localOffsetMode": {
+                        "const": 0
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "currentValvePosition": {},
+                    "localOffsetMode": {},
+                    "localOffset": {
+                        "title": "Local Offset",
+                        "description": "Current temperature set- point plus / minus local offset are communicated as an absolute temp- erature value [°C]",
+                        "$ref": "../../../../../../../meta-schemas/components/direction1-query-schema.json#/definitions/localOffset#",
+                        "unused": {
+                            "from": 81,
+                            "to": 255
+                        },
+                        "bitPosition": 9,
+                        "bitLength": 7,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "temperature": {},
+                    "temperatureSelection": {},
+                    "energyInputEnabled": {},
+                    "energyStorage": {},
+                    "windowOpenDirection": {},
+                    "learnBit": {},
+                    "radioComError": {},
+                    "radioSingnalStrength": {},
+                    "actuatorOstructed": {}
+                },
+                "additionalProperties": false
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "localOffsetMode": {
+                        "const": 1
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "currentValvePosition": {},
+                    "localOffsetMode": {},
+                    "localOffset": {
+                        "title": "Local Offset",
+                        "description": "Current temperature set- point plus / minus local offset are communicated as an absolute temp- erature value [°C]",
+                        "$ref": "../../../../../../../meta-schemas/components/temperature-schema.json#/definitions/temperatureLocalOffset#",
+                        "unused": {
+                            "from": 81,
+                            "to": 127
+                        },
+                        "bitPosition": 9,
+                        "bitLength": 7,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "temperature": {},
+                    "temperatureSelection": {},
+                    "energyInputEnabled": {},
+                    "energyStorage": {},
+                    "windowOpenDirection": {},
+                    "learnBit": {},
+                    "radioComError": {},
+                    "radioSingnalStrength": {},
+                    "actuatorOstructed": {}
+                },
+                "additionalProperties": false
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "temperatureSelection": {
+                        "const": 0
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "localOffsetMode",
+                    "localOffset"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "currentValvePosition": {},
+                    "localOffsetMode": {},
+                    "localOffset": {},
+                    "temperature": {
+                        "title": "Temperature",
+                        "description": "Local Ambient",
+                        "$ref": "../../../../../../../meta-schemas/components/temperature-schema.json#/definitions/temperature0to40CelciusHalfStep#",
+                        "unused": {
+                            "from": 81,
+                            "to": 254
+                        },
+                        "bitPosition": 16,
+                        "bitLength": 8,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "temperatureSelection": {},
+                    "energyInputEnabled": {},
+                    "energyStorage": {},
+                    "windowOpenDirection": {},
+                    "learnBit": {},
+                    "radioComError": {},
+                    "radioSingnalStrength": {},
+                    "actuatorOstructed": {}
+                },
+                "additionalProperties": false
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "temperatureSelection": {
+                        "const": 1
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "number",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "senderId",
+                    "repeating",
+                    "destination",
+                    "origin",
+                    "direction",
+                    "localOffsetMode",
+                    "localOffset"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "currentValvePosition": {},
+                    "localOffsetMode": {},
+                    "localOffset": {},
+                    "temperature": {
+                        "title": "Temperature",
+                        "description": "Feed temperature",
+                        "$ref": "../../../../../../../meta-schemas/components/temperature-schema.json#/definitions/temperature0to80CelciusQuarterStep#",
+                        "unused": {
+                            "from": 161,
+                            "to": 254
+                        },
+                        "bitPosition": 16,
+                        "bitLength": 8,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "temperatureSelection": {},
+                    "energyInputEnabled": {},
+                    "energyStorage": {},
+                    "windowOpenDirection": {},
+                    "learnBit": {},
+                    "radioComError": {},
+                    "radioSingnalStrength": {},
+                    "actuatorOstructed": {}
+                },
+                "additionalProperties": false
+            }
+        }
+    ]
+}

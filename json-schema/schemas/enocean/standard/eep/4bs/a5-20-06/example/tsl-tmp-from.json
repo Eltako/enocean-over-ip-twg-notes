@@ -1,0 +1,30 @@
+{
+    "$schema": "../a5-20-06-schema.json",
+    "number": "a5-20-06",
+    "senderId": "Sender-ID",
+    "repeating": "none",
+    "destination": "controller",
+    "origin": "actuator",
+    "direction": "from",
+    "currentValvePosition": {
+        "valvePositionValue": 50,
+        "unit": "%"
+    },
+    "localOffsetMode": 1,
+    "localOffset": {
+        "temperatureValue": -5,
+        "unit": "°C"
+    },
+    "temperature": {
+        "temperatureValue": 0,
+        "unit": "°C"
+    },
+    "temperatureSelection": 0,
+    "energyInputEnabled": 0,
+    "energyStorage": 0,
+    "windowOpenDirection": 0,
+    "learnBit": 0,
+    "radioComError": 0,
+    "radioSingnalStrength": 0,
+    "actuatorOstructed": 0
+}

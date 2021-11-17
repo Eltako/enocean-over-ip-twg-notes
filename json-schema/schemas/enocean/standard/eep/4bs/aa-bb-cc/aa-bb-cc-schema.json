@@ -1,0 +1,102 @@
+{
+    "$schema": "../../../../../../meta-schemas/transport-layers/enocean/eep-meta-schema.json",
+    "additionalProperties": false,
+    "required": [
+        "$schema",
+        "number",
+        "senderId",
+        "repeating",
+        "destination",
+        "origin",
+        "genericTemperature"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "enum": [
+                "../aa-bb-cc-schema.json"
+            ]
+        },
+        "number": {
+            "type": "string",
+            "default": "00-00-00",
+            "enum": [
+                "aa-bb-cc"
+            ]
+        },
+        "genericTemperature": {
+            "title": "Example property: Reference to a schema definition",
+            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+            "$ref": "../../../../../../meta-schemas/components/generic-values-schema.json#/definitions/temperature#",
+            "bitPosition": 0,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian",
+            "unused": {
+                "from": 140,
+                "to": 255
+            }
+        },
+        "direction": {
+            "title": "Direction of the payload",
+            "description": "Specify the direction: Is the payload send \"from\" or \"to\" the controller?",
+            "type": "string",
+            "enum": [
+                "from",
+                "to"
+            ]
+        },
+        "destination": {
+            "title": "Destination name",
+            "description": "What is this JSON payloads destination?",
+            "type": "string",
+            "default": "controller",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor"
+            ]
+        },
+        "origin": {
+            "title": "Origin name",
+            "description": "What is the JSON payloads origin?",
+            "type": "string",
+            "default": "actuator",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor"
+            ]
+        },
+        "repeating": {
+            "title": "Repeating type",
+            "description": "Select between none, single and multiple repetitions.",
+            "type": "string",
+            "default": "none",
+            "enum": [
+                "none",
+                "single",
+                "multiple"
+            ]
+        },
+        "senderId": {
+            "title": "Identification of the sending device",
+            "description": "To identify your device you will need to send your sender identification to the controller.",
+            "type": "string",
+            "default": "",
+            "pattern": ""
+        },
+        "unused": [
+            {
+                "from": 0,
+                "to": 0
+            },
+            {
+                "from": 0,
+                "to": 0
+            }
+        ]
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "$schema": "../a5-06-01-schema.json",
+    "senderId": "controller0001",
+    "receiverId": "sensor0001",
+    "origin": "controller",
+    "destination": "sensor",
+    "supplyVoltage": {
+        "volts": 1.2
+    },
+    "illumination": {
+        "lux": 300
+    }
+}

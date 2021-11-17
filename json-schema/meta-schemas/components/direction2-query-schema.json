@@ -1,0 +1,351 @@
+{
+    "$schema": "./meta/query-meta-schema.json",
+    "definitions": {
+        "referenceRun": {
+            "title": "Reference Run",
+            "description": "Execute reference-run",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Normal operation"
+                },
+                {
+                    "position": 1,
+                    "value": "Reference-run"
+                }
+            ],
+            "enum": [
+                "Normal operation",
+                "Reference-run"
+            ]
+        },
+        "rfCommunicationInterval": {
+            "title": "RF Communication interval",
+            "description": "Radio duty cycle selection. Find additional information in the Appendix",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "AUTO 2, 5 or 10 minutes"
+                },
+                {
+                    "position": 1,
+                    "value": "2 minutes"
+                },
+                {
+                    "position": 2,
+                    "value": "5 minutes"
+                },
+                {
+                    "position": 3,
+                    "value": "10 minutes"
+                },
+                {
+                    "position": 4,
+                    "value": "20 minutes"
+                },
+                {
+                    "position": 5,
+                    "value": "30 minutes"
+                },
+                {
+                    "position": 6,
+                    "value": "60 minutes"
+                },
+                {
+                    "position": 7,
+                    "value": "120 minutes"
+                }
+            ],
+            "enum": [
+                "AUTO",
+                "2 minutes",
+                "5 minutes",
+                "10 minutes",
+                "20 minutes",
+                "30 minutes",
+                "60 minutes",
+                "120 minutes"
+            ],
+            "default": "AUTO"
+        },
+        "temperatureSelection": {
+            "title": "Temperature Selection",
+            "description": "Indicates which sensor is used for TMP",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Ambient sensor temp"
+                },
+                {
+                    "position": 1,
+                    "value": "Feed sensor temperature"
+                }
+            ],
+            "enum": [
+                "Ambient sensor temp",
+                "Feed sensor temperature"
+            ]
+        },
+        "energyInputEnabled": {
+            "title": "Energy Input Enabled",
+            "description": "Harvesting status",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Not harvesting"
+                },
+                {
+                    "position": 1,
+                    "value": "Harvesting active"
+                }
+            ],
+            "enum": [
+                "Not harvesting",
+                "Harvesting active"
+            ]
+        },
+        "energyStorage": {
+            "title": "Energy Storage",
+            "description": "Charge level of energy storage",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Low, almost discharged"
+                },
+                {
+                    "position": 1,
+                    "value": "Sufficiently charged"
+                }
+            ],
+            "enum": [
+                "Low, almost discharged",
+                "Sufficiently charged"
+            ]
+        },
+        "windowOpenDetection": {
+            "title": "Window open detection",
+            "description": "Window open detection",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "No open window detected"
+                },
+                {
+                    "position": 1,
+                    "value": "Open window detected"
+                }
+            ],
+            "enum": [
+                "No open window detected",
+                "Open window detected"
+            ]
+        },
+        "radioComError": {
+            "title": "Radio Com Error",
+            "description": "Indicates radio communication errors",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Radio communication is stable"
+                },
+                {
+                    "position": 1,
+                    "value": "Six or more consecutive radio communication errors have occurred"
+                }
+            ],
+            "enum": [
+                "Radio communication is stable",
+                "Six or more consecutive radio communication errors have occurred"
+            ]
+        },
+        "radioSignalStrength": {
+            "title": "Radio Signal Strength",
+            "description": "Weak radio signal warning",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Radio signal is strong"
+                },
+                {
+                    "position": 1,
+                    "value": "Radio signal is weak (-77 dBm or less)"
+                }
+            ],
+            "enum": [
+                "Radio signal is strong",
+                "Radio signal is weak (-77 dBm or less)"
+            ]
+        },
+        "actuatorObstructed": {
+            "title": "Actuator obstructed",
+            "description": "Reports blocked actuator (motor)",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Actuator working correctly"
+                },
+                {
+                    "position": 1,
+                    "value": "Actuator is blocked"
+                }
+            ],
+            "enum": [
+                "Actuator working correctly",
+                "Actuator is blocked"
+            ]
+        },
+        "setPointSelection": {
+            "title": "Set point selection",
+            "description": "Setpoint selection for DB3",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Valve position mode (0...100%)"
+                },
+                {
+                    "position": 1,
+                    "value": "Temperature setpoint (0...40°C), actuator- internal temperature controller is used"
+                }
+            ],
+            "enum": [
+                "Valve position mode (0...100%)",
+                "Temperature setpoint (0...40°C), actuator- internal temperature controller is used"
+            ]
+        },
+        "commOnInterval": {
+            "title": "Communication on interval",
+            "description": "All intervals possible (in minutes).",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "AUTO"
+                },
+                {
+                    "position": 1,
+                    "value": "2 minutes"
+                },
+                {
+                    "position": 2,
+                    "value": "5 minutes"
+                },
+                {
+                    "position": 3,
+                    "value": "10 minutes"
+                },
+                {
+                    "position": 4,
+                    "value": "20 minutes"
+                },
+                {
+                    "position": 5,
+                    "value": "30 minutes"
+                },
+                {
+                    "position": 6,
+                    "value": "60 minutes"
+                },
+                {
+                    "position": 7,
+                    "value": "120 minutes"
+                }
+            ],
+            "enum": [
+                "AUTO",
+                "2 minutes",
+                "5 minutes",
+                "10 minutes",
+                "20 minutes",
+                "30 minutes",
+                "60 minutes",
+                "120 minutes"
+            ]
+        },
+        "summerBit": {
+            "title": "Summer Bit",
+            "description": "Initiate summer mode (reduced communication)",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Normal operation"
+                },
+                {
+                    "position": 1,
+                    "value": "Summer mode with 8h radio duty cycle"
+                }
+            ],
+            "enum": [
+                "Normal operation",
+                "Summer mode with 8h radio duty cycle"
+            ]
+        },
+        "standby": {
+            "title": "Standby",
+            "description": "Enter standby mode, refer to Appendix",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Normal operation"
+                },
+                {
+                    "position": 1,
+                    "value": "Standby"
+                }
+            ],
+            "enum": [
+                "Normal operation",
+                "Standby"
+            ]
+        },
+        "learnBit": {
+            "title": "LRN Bit",
+            "description": "Telegram type",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Teach-in telegram"
+                },
+                {
+                    "position": 1,
+                    "value": "Data telegram"
+                }
+            ],
+            "enum": [
+                "Teach-in telegram",
+                "Data telegram"
+            ]
+        },
+        "rangeSelect": {
+            "title": "Range Select",
+            "description": "selection between two range values.",
+            "type": "string",
+            "query": [
+                {
+                    "position": 0,
+                    "value": "Range acc. to DB_1 (ILL1)"
+                },
+                {
+                    "position": 1,
+                    "value": "Range acc. to DB_2 (ILL2)"
+                }
+            ],
+            "enum": [
+                "Range acc. to DB_1 (ILL1)",
+                "Range acc. to DB_2 (ILL2)"
+            ]
+        }
+    }
+}

@@ -1,0 +1,140 @@
+{
+    "$schema": "./meta/value-meta-schema.json",
+    "definitions": {
+        "illumination1": {
+            "title": "Illumination range 300 to 30,000",
+            "description": "for values of 300 - 30,000 Lux with a stepsize of 116.47.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lux"],
+            "properties": {
+                "lux": {
+                    "title": "Illumination value",
+                    "description": "Only values within these restrictions are allowed.",
+                    "type": "number",
+                    "minimum": 300,
+                    "maximum": 30000,
+                    "step": 116.47,
+                    "default": 300
+                }
+            }
+        },
+        "illumination2": {
+            "title": "Illumination range 600 to 60,000",
+            "description": "For values of 600 - 60,000 Lux with a stepsize of 232.94.",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lux"],
+            "properties": {
+                "lux": {
+                    "title": "Illumination value",
+                    "description": "only values within these restrictions are allowed.",
+                    "type": "number",
+                    "minimum": 600,
+                    "maximum": 60000,
+                    "step": 232.94,
+                    "default": 600
+                }
+            }
+        },
+        "illuminationRange":{
+            "title": "Illumination range 300 to 60.000",
+            "description": "Combined value range for Illumination with multiple step sizes",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lux"],
+            "properties": {
+                "lux": {
+                    "title": "Illumination value",
+                    "description": "only values within these restrictions are allowed.",
+                    "type": "number",
+                    "oneOf": [
+                        {
+                            "minimum": 300,
+                            "maximum": 30000,
+                            "step": 116.47,
+                            "default": 300
+                        },
+                        {
+                            "exclusiveMinimum": 30000,
+                            "maximum": 60000,
+                            "step": 232.94,
+                            "default": 600
+                        }
+                    ]
+                }
+            }
+        },
+        "illuminationRange1":{
+            "title": "Illumination range 300 to 60.000",
+            "description": "Combined value range for Illumination with multiple step sizes",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lux"],
+            "properties": {
+                "illuminationValue": {
+                    "title": "Illumination value",
+                    "description": "only values within these restrictions are allowed.",
+                    "type": "number",
+                    "oneOf": [
+                        {
+                            "minimum": 300,
+                            "maximum": 30000,
+                            "step": 116.47,
+                            "default": 300
+                        },
+                        {
+                            "minimum": 600,
+                            "maximum": 60000,
+                            "step": 232.94,
+                            "default": 600
+                        }
+                    ]
+                },
+                "unit": {
+                    "title": "Illumination units",
+                    "description": "only units listed here may be used.",
+                    "type": "string",
+                    "enum": [
+                        "lx"
+                    ],
+                    "default": "lx"
+                }
+            }
+        },
+        "illuminationRange2":{
+            "title": "Illumination range 300 to 60.000",
+            "description": "Combined value range for Illumination with multiple step sizes",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["lux"],
+            "properties": {
+                "illuminationValue": {
+                    "title": "Illumination value",
+                    "description": "only values within these restrictions are allowed.",
+                    "type": "number",
+                    "minimum": 300,
+                    "maximum": 60000,
+                    "default": 300,
+                    "oneOf": [
+                        {
+                            "step": 116.47
+                        },
+                        {
+                            "step": 232.94
+                        }
+                    ]
+                },
+                "unit": {
+                    "title": "Illumination units",
+                    "description": "only units listed here may be used.",
+                    "type": "string",
+                    "enum": [
+                        "lx"
+                    ],
+                    "default": "lx"
+                }
+            }
+        }
+    }
+}

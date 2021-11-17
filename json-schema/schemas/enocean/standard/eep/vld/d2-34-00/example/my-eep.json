@@ -1,0 +1,11 @@
+{
+    "$schema": "../d2-34-00-schema.json",
+    "number": "00-00-00",
+    "senderId": "Sender-ID",
+    "repeating": "none",
+    "destination": "*",
+    "origin": "gateway",
+    "direction": "from",
+    "command": 3,
+    "channel": "*"
+}

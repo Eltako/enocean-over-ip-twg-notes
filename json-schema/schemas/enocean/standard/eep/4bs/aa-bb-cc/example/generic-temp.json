@@ -1,0 +1,13 @@
+{
+    "$schema": "../aa-bb-cc-schema.json",
+    "number": "aa-bb-cc",
+    "senderId": "0011223344",
+    "direction": "from",
+    "origin": "sensor",
+    "destination": "gateway",
+    "repeating": "none",
+    "genericTemperature": {
+        "temperatureValue": -40,
+        "unit": "°C"
+    }
+}

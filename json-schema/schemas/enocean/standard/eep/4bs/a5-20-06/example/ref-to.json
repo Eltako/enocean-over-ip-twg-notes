@@ -1,0 +1,16 @@
+{
+    "$schema": "../a5-20-06-schema.json",
+    "number": "A5-20-06",
+    "senderId": "Sender-ID",
+    "repeating": "none",
+    "destination": "controller",
+    "origin": "actuator",
+    "direction": "to",
+    "referenceRun": "Reference-run",
+    "commOnInterval": "AUTO",
+    "setPointSelection": "Temperature setpoint (0...40°C), actuator- internal temperature controller is used",
+    "temperatureSetpoint": {
+        "temperatureValue": 20,
+        "unit": "°C"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "$schema": "../d2-34-00-schema.json",
+    "number": "00-00-00",
+    "direction": "to",
+    "context": "SET delay time TO 5 seconds",
+    "Time": {
+        "value": 5,
+        "unit": "s"
+    }
+}

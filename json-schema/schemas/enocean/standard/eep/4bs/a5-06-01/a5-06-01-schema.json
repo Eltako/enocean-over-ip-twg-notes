@@ -1,0 +1,325 @@
+{
+    "$schema": "../../../../../../meta-schemas/transport-layers/enocean/eep-meta-schema.json",
+    "additionalProperties": false,
+    "required": [
+        "$schema",
+        "senderId",
+        "receiverId",
+        "destination",
+        "origin"
+    ],
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "enum": [
+                "../a5-06-01-schema.json"
+            ]
+        },
+        "number": {
+            "type": "string",
+            "default": "00-00-00",
+            "pattern": "[0-9a-fA-F]{2}-[0-9a-fA-F]{2}-[0-9a-fA-F]{2}"
+        },
+        "senderId": {
+            "title": "Identification of the sending device",
+            "description": "To identify your device you will need to send your sender identification to the controller.",
+            "type": "string",
+            "default": "",
+            "pattern": ""
+        },
+        "receiverId": {
+            "title": "Identification of the sending device",
+            "description": "To identify your device you will need to send your sender identification to the controller.",
+            "type": "string",
+            "default": "",
+            "pattern": ""
+        },
+        "repeating": {
+            "title": "Repeating type",
+            "description": "Select between none, single and multiple repeat.",
+            "type": "string",
+            "default": "none",
+            "enum": [
+                "none",
+                "single",
+                "multiple"
+            ]
+        },
+        "destination": {
+            "title": "Destination name",
+            "description": "What is this JSON payloads destination?",
+            "type": "string",
+            "default": "controller",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor"
+            ]
+        },
+        "origin": {
+            "title": "Origin name",
+            "description": "What is the JSON payloads origin?",
+            "type": "string",
+            "default": "actuator",
+            "enum": [
+                "actuator",
+                "controller",
+                "gateway",
+                "sensor"
+            ]
+        },
+        "supplyVoltage":{
+            "title": "Voltage value",
+            "description": "only values within these restrictions are allowed.",
+            "$ref": "../../../../../../meta-schemas/components/voltage-schema.json#/definitions/supplyVoltage",
+            "bitPosition": 0,
+            "bitLength": 8,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "learnBit":{
+            "title": "Example property: Reference to a schema definition",
+            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+            "$ref": "../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/learnBit",
+            "bitPosition": 28,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "illumination": {},
+        "rangeSelect":{
+            "title": "Example property: Reference to a schema definition",
+            "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+            "$ref": "../../../../../../meta-schemas/components/direction2-query-schema.json#/definitions/rangeSelect",
+            "bitPosition": 31,
+            "bitLength": 1,
+            "offset": 0,
+            "encoding": "bigEndian"
+        },
+        "unused": [
+            {
+                "from": 24,
+                "to": 28
+            },
+            {
+                "from": 29,
+                "to": 31
+            }
+        ]
+    },
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "origin": {
+                        "const": "sensor"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "$schema",
+                    "senderId",
+                    "receiverId",
+                    "destination",
+                    "origin",
+                    "supplyVoltage",
+                    "illumination",
+                    "rangeSelect"
+                ],
+                "allOf": [
+                    {
+                        "if": {
+                            "properties": {
+                                "rangeSelect": {
+                                    "const": "Range acc. to DB_1 (ILL1)"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "supplyVoltage":{},
+                                "illumination":{
+                                    "title": "Example property: Reference to a schema definition",
+                                    "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                                    "$ref": "../../../../../../meta-schemas/components/illumination-schema.json#/definitions/illumination1",
+                                    "bitPosition": 8,
+                                    "bitLength": 8,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                },
+                                "learnBit":{},
+                                "rangeSelect":{},
+                                "unused": []
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    {
+                        "if": {
+                            "properties": {
+                                "rangeSelect": {
+                                    "const": "Range acc. to DB_2 (ILL2)"
+                                }
+                            }
+                        },
+                        "then": {
+                            "properties": {
+                                "$schema": {},
+                                "number": {},
+                                "senderId": {},
+                                "receiverId": {},
+                                "repeating": {},
+                                "destination": {},
+                                "origin": {},
+                                "direction": {},
+                                "supplyVoltage":{},
+                                "illumination":{
+                                    "title": "Example property: Reference to a schema definition",
+                                    "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                                    "$ref": "../../../../../../meta-schemas/components/illumination-schema.json#/definitions/illumination2",
+                                    "bitPosition": 8,
+                                    "bitLength": 8,
+                                    "offset": 0,
+                                    "encoding": "bigEndian"
+                                },
+                                "learnBit":{},
+                                "rangeSelect":{},
+                                "unused": []
+                            },
+                            "additionalProperties": false
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "rangeSelect": {
+                        "const": "Range acc. to DB_1 (ILL1)"
+                    }
+                },
+                "required": ["rangeSelect"]
+            },
+            "then": {
+                "required": [
+                    "illumination",
+                    "supplyVoltage"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "receiverId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "supplyVoltage":{},
+                    "illumination":{
+                        "title": "Example property: Reference to a schema definition",
+                        "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                        "$ref": "../../../../../../meta-schemas/components/illumination-schema.json#/definitions/illumination1",
+                        "bitPosition": 8,
+                        "bitLength": 8,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "learnBit":{},
+                    "rangeSelect":{},
+                    "unused": []
+                },
+                "additionalProperties": false
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "rangeSelect": {
+                        "const": "Range acc. to DB_2 (ILL2)"
+                    }
+                },
+                "required": ["rangeSelect"]
+            },
+            "then": {
+                "required": [
+                    "illumination",
+                    "supplyVoltage"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "receiverId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "supplyVoltage":{},
+                    "illumination":{
+                        "title": "Example property: Reference to a schema definition",
+                        "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                        "$ref": "../../../../../../meta-schemas/components/illumination-schema.json#/definitions/illumination2",
+                        "bitPosition": 16,
+                        "bitLength": 8,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "learnBit":{},
+                    "rangeSelect":{},
+                    "unused": []
+                },
+                "additionalProperties": false
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "rangeSelect": {
+                        "const": false
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "illumination",
+                    "supplyVoltage"
+                ],
+                "properties": {
+                    "$schema": {},
+                    "number": {},
+                    "senderId": {},
+                    "receiverId": {},
+                    "repeating": {},
+                    "destination": {},
+                    "origin": {},
+                    "direction": {},
+                    "supplyVoltage":{},
+                    "illumination":{
+                        "title": "Example property: Reference to a schema definition",
+                        "description": "Reference to a schema definition located in the \"SchemaDefinitions\" folder. Use this if you have definied a schema or to use predefined generic schemas.",
+                        "$ref": "../../../../../../meta-schemas/components/illumination-schema.json#/definitions/illuminationRange",
+                        "bitPosition": 16,
+                        "bitLength": 8,
+                        "offset": 0,
+                        "encoding": "bigEndian"
+                    },
+                    "learnBit":{},
+                    "rangeSelect":{},
+                    "unused": []
+                },
+                "additionalProperties": false
+            }
+        }
+    ]
+}

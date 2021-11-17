@@ -1,0 +1,194 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "required": [
+        "$schema",
+        "definitions"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "$schema": {
+            "title": "Schema file location (this schema)",
+            "type": "string",
+            "__TODO": "Add possible online schema from EnOcean website.",
+            "default": "./query-meta-schema.json"
+        },
+        "definitions": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^[a-z][a-zA-Z0-9]*$": {
+                    "required": [
+                        "title",
+                        "description",
+                        "type",
+                        "query",
+                        "enum"
+                    ],
+                    "default": {
+                        "title": "",
+                        "description": "",
+                        "type": "string",
+                        "query": [
+                            {
+                                "position": 0,
+                                "value": "example value"
+                            },
+                            {
+                                "position": 1,
+                                "value": "example value 2"
+                            }
+                        ],
+                        "enum": [
+                            "example value",
+                            "example value 2"
+                        ]
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                        "title": {
+                            "title": "Title of query property",
+                            "description": "Descriptiv name of the property. Can hold additional information the property name cant hold.",
+                            "type": "string",
+                            "default": ""
+                        },
+                        "description": {
+                            "title": "Description of the query property",
+                            "description": "To add additional information. Describing what the property is used for and/or how to use it.",
+                            "type": "string",
+                            "default": ""
+                        },
+                        "type": {
+                            "title": "Value type the query property can hold",
+                            "description": "Value type the porperty is allowed to hold. A string value that should be \"integer\" or \"string\".",
+                            "type": "string",
+                            "default": "string",
+                            "enum": [
+                                "integer",
+                                "string"
+                            ]
+                        },
+                        "query": {
+                            "title": "Query property",
+                            "description": "Query property holding the value and position of the data.",
+                            "type": "array",
+                            "default": [
+                                {
+                                    "position": 0,
+                                    "value": "example value"
+                                },
+                                {
+                                    "position": 1,
+                                    "value": "example value 2"
+                                }
+                            ],
+                            "additionalItems": false,
+                            "items": {
+                                "type": "object",
+                                "required": [
+                                    "position",
+                                    "value"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "position": {
+                                        "title": "Integer position of value",
+                                        "description": "Integer position (of ID) of value within the property itself. Describes which decimal value in the EnOcean datablock stands for the particular string value within the query. (i.e. binary value 0000 = integer 1, binary value 0001 = integer 1, ...)",
+                                        "type": "integer",
+                                        "default": 0
+                                    },
+                                    "value": {
+                                        "title": "String value in the specified position",
+                                        "description": "String value of the query dependet on the position (or integer value) describing the meaning the binary value in the transmision can hold.",
+                                        "type": "string",
+                                        "default": ""
+                                    }
+                                }
+                            }
+                        },
+                        "enum": {
+                            "type": "array",
+                            "additionalItems": false,
+                            "default": [
+                                "example value",
+                                "example value 2"
+                            ],
+                            "items": {
+                                "title": "Values allowed",
+                                "description": "This enum holds all values that are allowed. When using the query format you schould fill this enum with all the possible values the property may hold.",
+                                "oneOf": [
+                                    {
+                                        "type": "string",
+                                        "default": "example value"
+                                    },
+                                    {
+                                        "type": "integer",
+                                        "default": 0
+                                    }
+                                ]
+                            }
+                        },
+                        "unused": {
+                            "title": "To set unused, reserved or empty data blocks",
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "default": [
+                                        {
+                                            "from": 0,
+                                            "to": 0
+                                        },
+                                        {
+                                            "from": 0,
+                                            "to": 0
+                                        }
+                                    ],
+                                    "items": {
+                                        "type": "object",
+                                        "required": [
+                                            "from",
+                                            "to"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {
+                                            "from": {
+                                                "type": "integer"
+                                            },
+                                            "to": {
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "type": "object",
+                                    "default": {
+                                        "from": 0,
+                                        "to": 0
+                                    },
+                                    "required": [
+                                        "from",
+                                        "to"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "from": {
+                                            "type": "integer"
+                                        },
+                                        "to": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        "default": {
+                            "title": "Default value",
+                            "description": "Value set as default when creating the payload.",
+                            "type": "string",
+                            "default": "example value"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
